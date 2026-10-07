@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SRL Khata - Accounting Software</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #123c69;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #123c69, #1e6091);
+            color: white;
+            padding: 80px 6%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 46px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 750px;
+            margin: auto;
+            font-size: 19px;
+            opacity: 0.95;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 26px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 6px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-demo {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-demo:hover {
+            background: #d97706;
+        }
+
+        .btn-info {
+            background: white;
+            color: #123c69;
+        }
+
+        .section {
+            padding: 60px 6%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #123c69;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 35px;
+            color: #5b6470;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .feature h3 {
+            color: #123c69;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #5b6470;
+            font-size: 15px;
+        }
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .plan {
+            background: white;
+            border: 1px solid #dce3ec;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .plan h3 {
+            color: #123c69;
+            margin-bottom: 10px;
+        }
+
+        .demo-box {
+            background: #e8f2ff;
+            border-left: 5px solid #1e6091;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .demo-box strong {
+            color: #123c69;
+        }
+
+        footer {
+            background: #102a43;
+            color: white;
+            text-align: center;
+            padding: 30px 6%;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px;
+            color: #d9e2ec;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        SRL Khata
+    </div>
+
+    <nav>
+        <a href="#features">Features</a>
+        <a href="#demo">Demo</a>
+        <a href="#plans">Plans</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>SRL Khata</h1>
+
+    <p>
+        Simple and powerful accounting software designed for
+        small businesses, shops and firms.
+    </p>
+
+    <div class="buttons">
+
+        <a
+            href="https://github.com/spShishpal-max/SRL-Khata-Releases/releases/latest/download/SRL_Khata_Demo_Setup.exe"
+            class="btn btn-demo"
+        >
+            Download Free Demo
+        </a>
+
+        <a href="#features" class="btn btn-info">
+            View Features
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="features">
+
+    <h2>Software Features</h2>
+
+    <p class="section-intro">
+        SRL Khata provides the essential accounting tools needed
+        to manage daily business transactions and reports.
+    </p>
+
+
+    <div class="features">
+
+        <div class="feature">
+            <h3>Sale Management</h3>
+            <p>
+                Create sale vouchers, maintain customer accounts,
+                calculate amounts and keep complete sale records.
+            </p>
+        </div>
+
+
+        <div class="feature">
+            <h3>Purchase Management</h3>
+            <p>
+                Record purchases, supplier transactions,
+                quantities, rates and purchase-related accounting.
+            </p>
+        </div>
+
+
+        <div class="feature">
+            <h3>Voucher Management</h3>
+            <p>
+                Manage payment, receipt and other business
+                voucher transactions in an organized manner.
+            </p>
+        </div>
+
+
+        <div class="feature">
+            <h3>Ledger</h3>
+            <p>
+                Maintain customer, supplier, cash, bank and
+                other ledger accounts with proper debit and credit records.
+            </p>
+        </div>
+
+
+        <div class="feature">
+            <h3>Item Master</h3>
+            <p>
+                Maintain items, quantities, rates and stock-related
+                information for day-to-day business operations.
+            </p>
+        </div>
+
+
+        <div class="feature">
+            <h3>Cash & Bank</h3>
+            <p>
+                Keep track of cash and bank transactions and
+                review the financial position of the business.
+            </p>
+        </div>
+
+
+        <div class="feature">
+            <h3>Trading Account</h3>
+            <p>
+                Review purchase, sale and stock information
+                through the trading account.
+            </p>
+        </div>
+
+
+        <div class="feature">
+            <h3>Profit & Loss</h3>
+            <p>
+                Review business income, expenses and profitability
+                through the Profit & Loss report.
+            </p>
+        </div>
+
+
+        <div class="feature">
+            <h3>Balance Sheet</h3>
+            <p>
+                View the financial position of the business
+                through the Balance Sheet.
+            </p>
+        </div>
+
+
+        <div class="feature">
+            <h3>Reports & Printing</h3>
+            <p>
+                View and print important accounting reports
+                and previously recorded business data.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="demo">
+
+    <h2>15-Day Free Demo</h2>
+
+    <p class="section-intro">
+        Try SRL Khata before purchasing a license.
+    </p>
+
+
+    <div class="demo-box">
+
+        <p>
+            <strong>Free Trial:</strong>
+            The SRL Khata demo provides a 15-day trial period.
+        </p>
+
+        <p>
+            <strong>Hardware Binding:</strong>
+            The demo is registered with the computer on which
+            it is activated.
+        </p>
+
+        <p>
+            <strong>After Demo Expiry:</strong>
+            Business entry and editing functions are restricted,
+            while existing reports and data can remain available
+            for viewing and printing.
+        </p>
+
+        <p>
+            <strong>Important:</strong>
+            The demo period is controlled by the SRL Khata
+            license server.
+        </p>
+
+        <div class="buttons">
+
+            <a
+                href="https://github.com/spShishpal-max/SRL-Khata-Releases/releases/latest/download/SRL_Khata_Demo_Setup.exe"
+                class="btn btn-demo"
+            >
+                Download Free Demo
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="plans">
+
+    <h2>License Plans</h2>
+
+    <p class="section-intro">
+        After the demo period, customers can purchase
+        a license according to their requirements.
+    </p>
+
+
+    <div class="plans">
+
+        <div class="plan">
+            <h3>1 Year</h3>
+            <p>1-year license</p>
+        </div>
+
+        <div class="plan">
+            <h3>2 Years</h3>
+            <p>2-year license</p>
+        </div>
+
+        <div class="plan">
+            <h3>3 Years</h3>
+            <p>3-year license</p>
+        </div>
+
+        <div class="plan">
+            <h3>5 Years</h3>
+            <p>5-year license</p>
+        </div>
+
+        <div class="plan">
+            <h3>Lifetime</h3>
+            <p>Lifetime license</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="contact">
+
+    <h2>SRL Khata</h2>
+
+    <p class="section-intro">
+        Accounting software for managing everyday business
+        transactions, ledgers, stock and financial reports.
+    </p>
+
+</section>
+
+
+<footer>
+
+    <p><strong>SRL Khata</strong></p>
+
+    <p>
+        Accounting Software
+    </p>
+
+    <p>
+        © 2026 SRL Khata. All rights reserved.
+    </p>
+
+</footer>
+
+
+<script>
+</script>
+
+</body>
+</html>
