@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SRL Khata Admin</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#f3f6fa;color:#172033}
+header{background:#173b67;color:#fff;padding:18px 24px;font-size:22px;font-weight:700}
+.wrap{max-width:1200px;margin:24px auto;padding:0 16px}
+.card{background:#fff;border:1px solid #d9e1ea;border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 3px 12px #0000000b}
+h2{margin:0 0 14px;font-size:18px}label{display:block;font-weight:600;margin:10px 0 5px}
+input,select{width:100%;padding:10px;border:1px solid #b8c4d1;border-radius:7px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+button{border:0;border-radius:7px;padding:10px 15px;cursor:pointer;font-weight:700;margin:5px 5px 0 0}
+.primary{background:#087a45;color:#fff}.blue{background:#1769aa;color:#fff}.red{background:#b4232c;color:#fff}.gray{background:#e8edf3;color:#172033}
+.status{margin-top:12px;padding:10px;border-radius:7px;background:#eef3f8;white-space:pre-wrap}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{border:1px solid #d8e0e8;padding:8px;text-align:left}th{background:#edf2f7}
+.small{font-size:12px;color:#64748b}.hidden{display:none}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:end}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>SRL Khata — Admin Panel</header>
+<div class="wrap">
+
+<div id="loginCard" class="card">
+<h2>Admin Login</h2>
+<p class="small">Enter the Cloudflare Admin Token. The token is kept only in this browser session and is never written into this HTML file.</p>
+<label>Admin Token</label>
+<input id="token" type="password" autocomplete="off" placeholder="Bearer token value">
+<button class="blue" onclick="login()">Login</button>
+<div id="loginStatus" class="status">Not connected.</div>
+</div>
+
+<div id="app" class="hidden">
+
+<div class="card">
+<h2>License Generator</h2>
+<div class="grid">
+<div><label>Customer Name *</label><input id="customer_name"></div>
+<div><label>Mobile</label><input id="mobile"></div>
+<div><label>Email</label><input id="email"></div>
+<div><label>Firm Name</label><input id="firm_name"></div>
+<div><label>Device Fingerprint *</label><input id="fp"></div>
+<div><label>Install ID *</label><input id="iid"></div>
+<div><label>Plan *</label>
+<select id="plan">
+<option value="1_YEAR">1 Year</option>
+<option value="2_YEAR">2 Years</option>
+<option value="3_YEAR">3 Years</option>
+<option value="5_YEAR">5 Years</option>
+<option value="LIFETIME">Lifetime</option>
+</select></div>
+</div>
+<button class="primary" onclick="generateLicense()">Generate License</button>
+<button class="gray" onclick="logout()">Logout</button>
+<div id="licenseStatus" class="status">Ready.</div>
+</div>
+
+<div class="card">
+<h2>Demo Control</h2>
+<div class="grid">
+<div><label>Device Fingerprint</label><input id="demo_fp"></div>
+<div><label>Install ID</label><input id="demo_iid"></div>
+<div><label>Days</label><input id="demo_days" type="number" value="15" min="1" max="3650"></div>
+<div><label>Action</label>
+<select id="demo_action">
+<option value="RESET">Reset</option>
+<option value="EXTEND">Extend</option>
+<option value="REVOKE">Revoke / Block</option>
+</select></div>
+</div>
+<button class="blue" onclick="demoAction()">Apply Demo Action</button>
+<div id="demoStatus" class="status">Ready.</div>
+</div>
+
+<div class="card">
+<h2>Customer / Device History</h2>
+<div class="toolbar">
+<div style="min-width:280px;flex:1"><label>Search</label><input id="search" placeholder="Mobile, customer, firm, device ID, license ID"></div>
+<button class="blue" onclick="loadHistory()">Refresh History</button>
+</div>
+<div id="historyStatus" class="status">History endpoint will be enabled with the Worker admin-history patch.</div>
+<div style="overflow:auto;margin-top:12px"><table id="historyTable">
+<thead><tr><th>Customer</th><th>Mobile</th><th>Plan</th><th>Issued</th><th>Expiry</th><th>Device</th><th>Status</th><th>Action</th></tr></thead>
+<tbody></tbody>
+</table></div>
+</div>
+
+</div>
+</div>
+
+<script>
+const API="https://srl-khata-license.sp-shishpal.workers.dev";
+let adminToken="";
+
+function authHeaders(){
+  return {"Content-Type":"application/json","Authorization":"Bearer "+adminToken};
+}
+function show(id,msg){document.getElementById(id).textContent=msg;}
+async function api(path,body){
+  const r=await fetch(API+path,{method:"POST",headers:authHeaders(),body:JSON.stringify(body||{})});
+  let d; try{d=await r.json()}catch{d={ok:false,error:"Invalid server response"}}
+  return {http:r.status,data:d};
+}
+async function login(){
+  adminToken=document.getElementById("token").value.trim();
+  if(!adminToken){show("loginStatus","Admin token is required.");return}
+  const x=await api("/api/admin/license",{customer_name:"__ADMIN_TEST__",plan:"1_YEAR",device_fingerprint:"__INVALID__",install_id:"__INVALID__"});
+  if(x.http===401){adminToken="";show("loginStatus","Invalid Admin Token.");return}
+  document.getElementById("loginCard").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  show("licenseStatus","Admin login verified.");
+}
+function logout(){adminToken="";document.getElementById("app").classList.add("hidden");document.getElementById("loginCard").classList.remove("hidden");document.getElementById("token").value="";}
+
+async function generateLicense(){
+  const body={
+    customer_name:document.getElementById("customer_name").value.trim(),
+    mobile:document.getElementById("mobile").value.trim(),
+    email:document.getElementById("email").value.trim(),
+    firm_name:document.getElementById("firm_name").value.trim(),
+    device_fingerprint:document.getElementById("fp").value.trim(),
+    install_id:document.getElementById("iid").value.trim(),
+    plan:document.getElementById("plan").value
+  };
+  if(!body.customer_name||!body.device_fingerprint||!body.install_id){show("licenseStatus","Customer Name, Device Fingerprint and Install ID are required.");return}
+  const x=await api("/api/admin/license",body);
+  if(!x.data.ok){show("licenseStatus","Error: "+(x.data.error||"License generation failed."));return}
+  const text=x.data.license_file||x.data.license_file_text||"";
+  const name=x.data.license_file_name||((x.data.license_id||"SRL_Khata_License")+".srlkey");
+  const blob=new Blob([text],{type:"application/octet-stream"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);
+  show("licenseStatus","License created successfully.\nPlan: "+x.data.plan+"\nExpiry: "+(x.data.expiry_date||"Lifetime")+"\nFile: "+name);
+}
+async function demoAction(){
+  const body={
+    device_fingerprint:document.getElementById("demo_fp").value.trim(),
+    install_id:document.getElementById("demo_iid").value.trim(),
+    days:Number(document.getElementById("demo_days").value||15),
+    action:document.getElementById("demo_action").value
+  };
+  if(!body.device_fingerprint||!body.install_id){show("demoStatus","Device Fingerprint and Install ID are required.");return}
+  const x=await api("/api/admin/demo/grant",body);
+  show("demoStatus",x.data.ok?JSON.stringify(x.data,null,2):"Error: "+(x.data.error||"Demo action failed."));
+}
+async function loadHistory(){
+  const q=encodeURIComponent(document.getElementById("search").value.trim());
+  const r=await fetch(API+"/api/admin/history?q="+q,{headers:{"Authorization":"Bearer "+adminToken}});
+  let d;try{d=await r.json()}catch{d={ok:false,error:"Invalid response"}}
+  if(!d.ok){show("historyStatus","History: "+(d.error||"endpoint not available yet"));return}
+  const rows=d.rows||[];
+  document.querySelector("#historyTable tbody").innerHTML=rows.map((x,i)=>`<tr>
+<td>${esc(x.customer_name)}</td><td>${esc(x.mobile)}</td><td>${esc(x.plan)}</td>
+<td>${esc(x.issued_at)}</td><td>${esc(x.expiry_date||"Lifetime")}</td>
+<td><span title="${esc(x.device_fingerprint)}">${esc((x.device_fingerprint||"").slice(0,16))}...</span></td>
+<td>${esc(x.status)}</td>
+<td><button class="red" onclick="deleteHistory('${escAttr(x.device_fingerprint)}')">Delete</button></td>
+</tr>`).join("");
+show("historyStatus",rows.length+" record(s) found.");
+}
+async function deleteHistory(fp){
+  if(!confirm("Delete this customer's device history? This should only be used when you are sure."))return;
+  const x=await api("/api/admin/history/delete",{device_fingerprint:fp});
+  show("historyStatus",x.data.ok?"History deleted.":"Error: "+(x.data.error||"Delete failed."));
+  if(x.data.ok)loadHistory();
+}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function escAttr(v){return esc(v).replace(/`/g,"&#96;")}
+</script>
+</body>
+</html>
