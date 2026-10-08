@@ -161,7 +161,40 @@ function originalExpiry(r){
         (r.first_seen?addDays(r.first_seen,15):"");
 }
 function currentExpiry(r){
- return r.current_expiry||r.current_expiry_date||r.demo_grant_expires_at||r.expiry_date||"";
+
+    const explicit =
+        r.current_expiry ||
+        r.current_expiry_date ||
+        r.demo_grant_expires_at ||
+        r.expiry_date ||
+        "";
+
+    if(explicit){
+        return explicit;
+    }
+
+    /*
+       Normal DEMO:
+       अगर admin ने अभी कोई अलग grant/reset expiry नहीं दी है,
+       तो effective demo expiry = first_seen + 15 days.
+    */
+    const type =
+        String(
+            r.record_type ||
+            r.type ||
+            ""
+        ).toUpperCase();
+
+    if(type === "DEMO" && r.first_seen){
+
+        return addDays(
+            r.first_seen,
+            15
+        );
+
+    }
+
+    return "";
 }
 function startDate(r){return r.start_at||r.started_at||r.issued_at||r.first_seen||""}
 function statusBadge(s){
