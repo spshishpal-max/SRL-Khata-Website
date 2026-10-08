@@ -3,2218 +3,341 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SRL Khata Admin Panel</title>
-
+<title>SRL Khata Admin</title>
 <style>
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f4f7fb;
-    color:#172033;
-}
-
-.wrap{
-    max-width:1450px;
-    margin:24px auto;
-    padding:0 16px;
-}
-
-.card{
-    background:#fff;
-    border:1px solid #dbe2ec;
-    border-radius:12px;
-    padding:18px;
-    margin-bottom:16px;
-    box-shadow:0 3px 14px rgba(20,40,80,.06);
-}
-
-h1,
-h2{
-    margin:0 0 14px;
-}
-
-h1{
-    font-size:25px;
-}
-
-h2{
-    font-size:19px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:10px;
-}
-
-.grid2{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:10px;
-}
-
-label{
-    font-size:12px;
-    font-weight:700;
-    display:block;
-    margin-bottom:5px;
-}
-
-input,
-select,
-button,
-textarea{
-    width:100%;
-    padding:10px;
-    border:1px solid #cbd5e1;
-    border-radius:7px;
-    font-size:14px;
-}
-
-input[readonly]{
-    background:#f1f5f9;
-}
-
-button{
-    cursor:pointer;
-    background:#1d4ed8;
-    color:#fff;
-    border:0;
-    font-weight:700;
-}
-
-button:hover{
-    opacity:.92;
-}
-
-button.secondary{
-    background:#475569;
-}
-
-button.danger{
-    background:#b91c1c;
-}
-
-button.success{
-    background:#15803d;
-}
-
-button.light{
-    background:#e2e8f0;
-    color:#172033;
-}
-
-button.smallbtn{
-    width:auto;
-    padding:7px 10px;
-}
-
-.row{
-    display:flex;
-    gap:9px;
-    align-items:end;
-}
-
-.row>*{
-    flex:1;
-}
-
-.msg{
-    margin-top:10px;
-    padding:10px;
-    border-radius:7px;
-    background:#eef5ff;
-    white-space:pre-wrap;
-    word-break:break-word;
-}
-
-.msg.error{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-.msg.success{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.hidden{
-    display:none;
-}
-
-.small{
-    font-size:12px;
-    color:#64748b;
-    margin-top:6px;
-    line-height:1.5;
-}
-
-.tablewrap{
-    overflow:auto;
-    border:1px solid #dbe2ec;
-    border-radius:8px;
-    margin-top:10px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:1700px;
-}
-
-th,
-td{
-    padding:9px;
-    border-bottom:1px solid #e2e8f0;
-    text-align:left;
-    font-size:12px;
-    white-space:nowrap;
-    vertical-align:top;
-}
-
-th{
-    background:#eef2f7;
-    position:sticky;
-    top:0;
-    z-index:1;
-}
-
-.clickrow{
-    cursor:pointer;
-}
-
-.clickrow:hover{
-    background:#f0f7ff;
-}
-
-.selectedrow{
-    background:#dbeafe !important;
-}
-
-.badge{
-    display:inline-block;
-    padding:4px 7px;
-    border-radius:999px;
-    background:#e2e8f0;
-    font-size:11px;
-    font-weight:700;
-}
-
-.badge.demo{
-    background:#dbeafe;
-    color:#1e40af;
-}
-
-.badge.lic{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.badge.blocked{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-.badge.active{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.badge.expired{
-    background:#fef3c7;
-    color:#92400e;
-}
-
-.mono{
-    font-family:Consolas,monospace;
-    font-size:11px;
-}
-
-.expirybox{
-    background:#f8fafc;
-    border:1px solid #dbe2ec;
-    border-radius:8px;
-    padding:10px;
-}
-
-.expirybox strong{
-    display:block;
-    font-size:11px;
-    color:#64748b;
-    margin-bottom:4px;
-}
-
-.expirybox span{
-    display:block;
-    font-family:Consolas,monospace;
-    font-size:12px;
-    word-break:break-all;
-}
-
-.resultbox{
-    margin-top:12px;
-}
-
-.resultbox textarea{
-    min-height:180px;
-    resize:vertical;
-    font-family:Consolas,monospace;
-    font-size:12px;
-    background:#0f172a;
-    color:#e2e8f0;
-}
-
-.notice{
-    background:#fff7ed;
-    border:1px solid #fed7aa;
-    color:#9a3412;
-    padding:10px;
-    border-radius:8px;
-    font-size:12px;
-    line-height:1.5;
-}
-
-@media(max-width:1100px){
-    .grid{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-    }
-}
-
-@media(max-width:700px){
-    .grid,
-    .grid2{
-        grid-template-columns:1fr;
-    }
-
-    .row{
-        flex-direction:column;
-        align-items:stretch;
-    }
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
+.wrap{max-width:1500px;margin:20px auto;padding:0 14px}
+.card{background:#fff;border:1px solid #dbe2ec;border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(20,40,80,.05)}
+h1{font-size:24px;margin:0 0 14px}h2{font-size:18px;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+label{display:block;font-size:12px;font-weight:700;margin:0 0 5px}
+input,select,button,textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px}
+input[readonly]{background:#f1f5f9}
+button{background:#2454d8;color:#fff;border:0;font-weight:700;cursor:pointer}
+button:hover{opacity:.92}
+button.secondary{background:#475569}
+button.success{background:#15803d}
+button.danger{background:#b91c1c}
+button.light{background:#e2e8f0;color:#172033}
+button.small{width:auto;padding:6px 9px;font-size:11px}
+.row{display:flex;gap:8px;align-items:end}
+.msg{margin-top:9px;padding:9px;border-radius:6px;background:#eef5ff;font-size:12px;white-space:pre-wrap;word-break:break-word}
+.msg.error{background:#fee2e2;color:#991b1b}.msg.success{background:#dcfce7;color:#166534}
+.hidden{display:none}.smalltxt{font-size:11px;color:#64748b;line-height:1.5;margin-top:5px}
+.mono{font-family:Consolas,monospace;font-size:11px}
+.expgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:10px}
+.expbox{border:1px solid #dbe2ec;border-radius:7px;background:#f8fafc;padding:9px}
+.expbox b{display:block;color:#64748b;font-size:10px;margin-bottom:4px}.expbox span{font-family:Consolas,monospace;font-size:11px;word-break:break-all}
+.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:7px;padding:9px;font-size:11px;line-height:1.5;margin-top:9px}
+.tablewrap{overflow:auto;border:1px solid #dbe2ec;border-radius:7px;margin-top:9px;max-height:520px}
+table{border-collapse:collapse;min-width:1900px;width:100%}
+th,td{padding:8px;border-bottom:1px solid #e2e8f0;font-size:11px;white-space:nowrap;text-align:left;vertical-align:top}
+th{background:#eef2f7;position:sticky;top:0;z-index:2}
+tr.data-row{cursor:pointer}tr.data-row:hover{background:#eff6ff}tr.selected{background:#dbeafe!important}
+th.action-col,td.action-col{position:sticky;right:0;background:#fff;z-index:3;border-left:1px solid #cbd5e1}
+th.action-col{background:#eef2f7;z-index:4}
+.badge{display:inline-block;padding:3px 7px;border-radius:99px;font-size:10px;font-weight:700}
+.demo{background:#dbeafe;color:#1e40af}.license{background:#dcfce7;color:#166534}
+.active{background:#dcfce7;color:#166534}.blocked{background:#fee2e2;color:#991b1b}.expired{background:#fef3c7;color:#92400e}
+textarea{min-height:120px;font-family:Consolas,monospace;font-size:11px;background:#0f172a;color:#e2e8f0}
+.downloadbox{display:flex;gap:8px;margin-top:8px}.downloadbox button{width:auto}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.expgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.grid,.grid2,.expgrid{grid-template-columns:1fr}.row{flex-direction:column;align-items:stretch}}
 </style>
 </head>
-
 <body>
-
 <div class="wrap">
 
-    <!-- LOGIN -->
-    <div class="card">
-
-        <h1>SRL Khata Admin Panel</h1>
-
-        <div class="grid2">
-
-            <div>
-                <label>Admin Token</label>
-
-                <input
-                    id="token"
-                    type="password"
-                    autocomplete="off"
-                    placeholder="Enter admin token"
-                >
-            </div>
-
-            <div>
-                <label>&nbsp;</label>
-
-                <button id="loginBtn">
-                    Verify Admin
-                </button>
-            </div>
-
-        </div>
-
-        <div id="loginMsg" class="msg">
-            Admin login required.
-        </div>
-
-    </div>
-
-
-    <!-- MAIN PANEL -->
-    <div id="panel" class="hidden">
-
-
-        <!-- LICENSE GENERATOR -->
-        <div class="card">
-
-            <h2>License Generator</h2>
-
-            <div class="grid">
-
-                <div>
-                    <label>Customer Name</label>
-                    <input id="customer_name">
-                </div>
-
-                <div>
-                    <label>Mobile</label>
-                    <input id="mobile">
-                </div>
-
-                <div>
-                    <label>Email</label>
-                    <input id="email">
-                </div>
-
-                <div>
-                    <label>Firm Name</label>
-                    <input id="firm_name">
-                </div>
-
-                <div>
-                    <label>Device / Machine ID</label>
-                    <input
-                        id="device_fingerprint"
-                        class="mono"
-                    >
-                </div>
-
-                <div>
-                    <label>Install ID</label>
-                    <input
-                        id="install_id"
-                        class="mono"
-                    >
-                </div>
-
-                <div>
-
-                    <label>Plan</label>
-
-                    <select id="plan">
-
-                        <option value="1_YEAR">
-                            1 Year
-                        </option>
-
-                        <option value="2_YEARS">
-                            2 Years
-                        </option>
-
-                        <option value="3_YEARS">
-                            3 Years
-                        </option>
-
-                        <option value="5_YEARS">
-                            5 Years
-                        </option>
-
-                        <option value="LIFETIME">
-                            Lifetime
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div>
-
-                    <label>&nbsp;</label>
-
-                    <button
-                        id="generateBtn"
-                        class="success"
-                    >
-                        Generate License
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="small"
-            >
-                History की किसी भी row पर click करने से
-                Customer, Mobile, Email, Firm, Machine ID,
-                Install ID और Plan ऊपर auto-fill होंगे।
-            </div>
-
-
-            <div
-                id="licenseMsg"
-                class="msg"
-            ></div>
-
-
-            <div
-                id="licenseResult"
-                class="resultbox hidden"
-            >
-
-                <label>
-                    Signed License Text
-                </label>
-
-                <textarea
-                    id="licenseText"
-                    readonly
-                ></textarea>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- DEMO CONTROL -->
-        <div class="card">
-
-            <h2>Demo Control</h2>
-
-            <div class="grid">
-
-                <div>
-                    <label>Device / Machine ID</label>
-
-                    <input
-                        id="demo_fp"
-                        class="mono"
-                        readonly
-                    >
-                </div>
-
-                <div>
-                    <label>Install ID</label>
-
-                    <input
-                        id="demo_iid"
-                        class="mono"
-                        readonly
-                    >
-                </div>
-
-                <div>
-                    <label>Days</label>
-
-                    <input
-                        id="demo_days"
-                        type="number"
-                        min="1"
-                        max="3650"
-                        value="15"
-                    >
-                </div>
-
-                <div>
-
-                    <label>Action</label>
-
-                    <select id="demo_action">
-
-                        <option value="RESET">
-                            RESET — 15 Days From Now
-                        </option>
-
-                        <option value="EXTEND">
-                            EXTEND — Add After Valid Expiry
-                        </option>
-
-                        <option value="REVOKE">
-                            REVOKE — Block PC
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <!-- EXPIRY INFORMATION -->
-            <div
-                class="grid"
-                style="margin-top:12px"
-            >
-
-                <div class="expirybox">
-
-                    <strong>
-                        Original Expiry
-                    </strong>
-
-                    <span id="demo_original_expiry">
-                        —
-                    </span>
-
-                </div>
-
-
-                <div class="expirybox">
-
-                    <strong>
-                        Current Expiry
-                    </strong>
-
-                    <span id="demo_current_expiry">
-                        —
-                    </span>
-
-                </div>
-
-
-                <div class="expirybox">
-
-                    <strong>
-                        Demo Start
-                    </strong>
-
-                    <span id="demo_start">
-                        —
-                    </span>
-
-                </div>
-
-
-                <div class="expirybox">
-
-                    <strong>
-                        Current Status
-                    </strong>
-
-                    <span id="demo_current_status">
-                        —
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="small"
-            >
-                RESET हमेशा अभी से 15 दिन करेगा।
-                पुराने expired date में 15 दिन नहीं जोड़े जाएंगे।
-                EXTEND केवल valid future expiry के बाद days जोड़ता है।
-                REVOKE PC को BLOCK करता है।
-            </div>
-
-
-            <div style="margin-top:10px">
-
-                <button
-                    id="demoBtn"
-                    class="secondary"
-                >
-                    Apply Demo Action
-                </button>
-
-            </div>
-
-
-            <div
-                id="demoMsg"
-                class="msg"
-            ></div>
-
-        </div>
-
-
-
-        <!-- HISTORY -->
-        <div class="card">
-
-            <h2>
-                Customer / Device History
-            </h2>
-
-
-            <div class="row">
-
-                <div>
-
-                    <label>
-                        Search
-                    </label>
-
-                    <input
-                        id="search"
-                        placeholder="Customer, mobile, email, firm, machine ID, install ID..."
-                    >
-
-                </div>
-
-
-                <div style="max-width:180px">
-
-                    <button
-                        id="refreshBtn"
-                    >
-                        Refresh History
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="notice"
-                style="margin-top:10px"
-            >
-                DEMO row में वही customer information दिखाई जाएगी
-                जो server/database में वास्तव में मौजूद है।
-                Machine ID या दूसरी जानकारी अनुमान से नहीं बनाई जाएगी।
-            </div>
-
-
-            <div
-                id="historyMsg"
-                class="msg"
-            ></div>
-
-
-            <div class="tablewrap">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Type</th>
-
-                            <th>Customer</th>
-
-                            <th>Mobile</th>
-
-                            <th>Email</th>
-
-                            <th>Firm</th>
-
-                            <th>Plan</th>
-
-                            <th>Demo Days</th>
-
-                            <th>Start / Issued</th>
-
-                            <th>Original Expiry</th>
-
-                            <th>Current Expiry</th>
-
-                            <th>Status</th>
-
-                            <th>Machine ID</th>
-
-                            <th>Install ID</th>
-
-                            <th>Download ID</th>
-
-                            <th>Action</th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody id="historyBody"></tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-    </div>
-
+<div class="card">
+<h1>SRL Khata Admin Panel</h1>
+<div class="grid2">
+<div><label>Admin Token</label><input id="token" type="password" autocomplete="off"></div>
+<div><label>&nbsp;</label><button id="loginBtn">Verify Admin</button></div>
+</div>
+<div id="loginMsg" class="msg">Admin login required.</div>
 </div>
 
+<div id="panel" class="hidden">
+
+<div class="card">
+<h2>License Generator</h2>
+<div class="grid">
+<div><label>Customer Name</label><input id="customer_name"></div>
+<div><label>Mobile</label><input id="mobile"></div>
+<div><label>Email</label><input id="email"></div>
+<div><label>Firm Name</label><input id="firm_name"></div>
+<div><label>Device / Machine ID</label><input id="device_fingerprint" class="mono"></div>
+<div><label>Install ID</label><input id="install_id" class="mono"></div>
+<div>
+<label>Plan</label>
+<select id="plan">
+<option value="1_YEAR">1 Year</option>
+<option value="2_YEARS">2 Years</option>
+<option value="3_YEARS">3 Years</option>
+<option value="5_YEARS">5 Years</option>
+<option value="LIFETIME">Lifetime</option>
+</select>
+</div>
+<div><label>&nbsp;</label><button id="generateBtn" class="success">Generate License</button></div>
+</div>
+<div class="smalltxt">History की row पर click करने से customer/device/plan ऊपर auto-fill होंगे।</div>
+<div id="licenseMsg" class="msg"></div>
+<div id="licenseResult" class="hidden">
+<div style="margin-top:10px"><label>Signed License Token</label><textarea id="licenseText" readonly></textarea></div>
+<div class="downloadbox">
+<button id="downloadLicenseBtn" class="success">Download SRL Khata License (.json)</button>
+<button id="copyLicenseBtn" class="secondary">Copy License Token</button>
+</div>
+<div class="smalltxt">यह .json file वही signed token रखती है जिसे SRL Khata का current license client import कर सकता है।</div>
+</div>
+</div>
+
+<div class="card">
+<h2>Demo Control</h2>
+<div class="grid">
+<div><label>Device / Machine ID</label><input id="demo_fp" class="mono" readonly></div>
+<div><label>Install ID</label><input id="demo_iid" class="mono" readonly></div>
+<div><label>Days</label><input id="demo_days" type="number" min="1" max="3650" value="15"></div>
+<div>
+<label>Action</label>
+<select id="demo_action">
+<option value="RESET">RESET — 15 Days From Now</option>
+<option value="EXTEND">EXTEND — Add After Valid Expiry</option>
+<option value="REVOKE">REVOKE — Block PC</option>
+</select>
+</div>
+</div>
+<div class="expgrid">
+<div class="expbox"><b>Original Expiry</b><span id="demo_original">—</span></div>
+<div class="expbox"><b>Current Expiry</b><span id="demo_current">—</span></div>
+<div class="expbox"><b>Demo Start</b><span id="demo_start">—</span></div>
+<div class="expbox"><b>Status</b><span id="demo_status">—</span></div>
+</div>
+<div class="smalltxt">RESET हमेशा अभी से 15 दिन करेगा। Expired date में 15 दिन नहीं जोड़े जाएंगे। EXTEND valid future expiry के बाद days जोड़ता है। REVOKE PC को BLOCK करता है।</div>
+<div style="margin-top:9px"><button id="demoBtn" class="secondary">Apply Demo Action</button></div>
+<div id="demoMsg" class="msg"></div>
+</div>
+
+<div class="card">
+<h2>Customer / Device History</h2>
+<div class="row">
+<div><label>Search</label><input id="search" placeholder="Customer, mobile, email, firm, Machine ID, Install ID..."></div>
+<div style="max-width:180px"><button id="refreshBtn">Refresh History</button></div>
+</div>
+<div class="notice">DEMO row में customer details तभी दिखेंगी जब वे server/database में stored हों। अनुमान से कोई नाम/mobile नहीं बनाया जाएगा। Action column अब right side पर fixed है, इसलिए Delete button हमेशा दिखाई देगा।</div>
+<div id="historyMsg" class="msg"></div>
+<div class="tablewrap">
+<table>
+<thead><tr>
+<th>Type</th><th>Customer</th><th>Mobile</th><th>Email</th><th>Firm</th><th>Plan</th><th>Demo Days</th>
+<th>Start / Issued</th><th>Original Expiry</th><th>Current Expiry</th><th>Status</th>
+<th>Machine ID</th><th>Install ID</th><th>Download ID</th><th class="action-col">Action</th>
+</tr></thead>
+<tbody id="historyBody"></tbody>
+</table>
+</div>
+</div>
+
+</div>
+</div>
 
 <script>
+const API="https://srl-khata-license.sp-shishpal.workers.dev";
+let adminToken="";
+let selectedMachineId="";
+let currentLicenseToken="";
 
-/* =========================================================
-   SRL KHATA ADMIN PANEL
-   ========================================================= */
-
-const API =
-    "https://srl-khata-license.sp-shishpal.workers.dev";
-
-
-let adminToken = "";
-
-let selectedMachineId = "";
-
-
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
-
-function authHeaders(extra = {}) {
-
-    return Object.assign(
-        {
-            "Authorization":
-                "Bearer " + adminToken
-        },
-        extra
-    );
-
+function headers(extra={}){return Object.assign({"Authorization":"Bearer "+adminToken},extra)}
+function val(id){return document.getElementById(id).value.trim()}
+function setv(id,v){document.getElementById(id).value=v??""}
+function msg(id,t,type=""){const e=document.getElementById(id);e.className="msg"+(type?" "+type:"");e.textContent=t||""}
+function esc(v){return String(v??"").replace(/[&<>"']/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[s]))}
+function iso(v){if(!v)return"—";if(String(v).toUpperCase()==="LIFETIME")return"LIFETIME";const d=new Date(v);return Number.isNaN(d.getTime())?String(v):d.toISOString()}
+function addDays(v,n){const d=new Date(v);if(Number.isNaN(d.getTime()))return"";d.setTime(d.getTime()+Number(n)*86400000);return d.toISOString()}
+function originalExpiry(r){
+ return r.original_expiry||r.original_expiry_date||r.demo_original_expiry||
+        (r.first_seen?addDays(r.first_seen,15):"");
+}
+function currentExpiry(r){
+ return r.current_expiry||r.current_expiry_date||r.demo_grant_expires_at||r.expiry_date||"";
+}
+function startDate(r){return r.start_at||r.started_at||r.issued_at||r.first_seen||""}
+function statusBadge(s){
+ s=String(s||"").toUpperCase();
+ let c=s==="BLOCKED"?"blocked":(s==="EXPIRED"||s==="DEMO_EXPIRED"?"expired":"active");
+ return `<span class="badge ${c}">${esc(s||"—")}</span>`;
 }
 
-
-function esc(value) {
-
-    return String(value ?? "")
-        .replace(
-            /[&<>"']/g,
-            function(s){
-
-                return {
-
-                    "&":"&amp;",
-                    "<":"&lt;",
-                    ">":"&gt;",
-                    '"':"&quot;",
-                    "'":"&#39;"
-
-                }[s];
-
-            }
-        );
-
+async function login(){
+ adminToken=val("token");
+ if(!adminToken){msg("loginMsg","Admin token डालें.","error");return}
+ try{
+  const r=await fetch(API+"/api/admin/history?q=__check__", {headers:headers()});
+  const d=await r.json();
+  if(r.status===401||!d.ok)throw new Error(d.error||"Invalid admin token.");
+  document.getElementById("panel").classList.remove("hidden");
+  msg("loginMsg","Admin verified successfully.","success");
+  await loadHistory();
+ }catch(e){adminToken="";msg("loginMsg",e.message,"error")}
 }
 
-
-function setMsg(id,text,type="") {
-
-    const el =
-        document.getElementById(id);
-
-    el.className = "msg";
-
-    if(type){
-
-        el.classList.add(type);
-
-    }
-
-    el.textContent = text || "";
-
+function fillRow(r){
+ selectedMachineId=r.device_fingerprint||"";
+ setv("customer_name",r.customer_name||"");
+ setv("mobile",r.mobile||"");
+ setv("email",r.email||"");
+ setv("firm_name",r.firm_name||"");
+ setv("device_fingerprint",r.device_fingerprint||"");
+ setv("install_id",r.install_id||"");
+ const p=String(r.plan||"").toUpperCase();
+ if(["1_YEAR","2_YEARS","3_YEARS","5_YEARS","LIFETIME"].includes(p))document.getElementById("plan").value=p;
+ setv("demo_fp",r.device_fingerprint||"");
+ setv("demo_iid",r.install_id||"");
+ document.getElementById("demo_original").textContent=iso(originalExpiry(r));
+ document.getElementById("demo_current").textContent=iso(currentExpiry(r));
+ document.getElementById("demo_start").textContent=iso(startDate(r));
+ document.getElementById("demo_status").textContent=r.status||"—";
 }
-
-
-function setValue(id,value){
-
-    document.getElementById(id).value =
-        value == null ? "" : value;
-
-}
-
-
-function getValue(id){
-
-    return document
-        .getElementById(id)
-        .value
-        .trim();
-
-}
-
-
-function validPlan(plan){
-
-    return [
-        "1_YEAR",
-        "2_YEARS",
-        "3_YEARS",
-        "5_YEARS",
-        "LIFETIME"
-    ].includes(
-        String(plan || "").toUpperCase()
-    );
-
-}
-
-
-function addDaysIso(dateValue,days){
-
-    if(!dateValue){
-        return "";
-    }
-
-    const d =
-        new Date(dateValue);
-
-    if(Number.isNaN(d.getTime())){
-        return "";
-    }
-
-    d.setTime(
-        d.getTime() +
-        Number(days) *
-        24 *
-        60 *
-        60 *
-        1000
-    );
-
-    return d.toISOString();
-
-}
-
-
-function formatExpiry(value){
-
-    if(!value){
-        return "—";
-    }
-
-    if(
-        String(value).toUpperCase() ===
-        "LIFETIME"
-    ){
-
-        return "LIFETIME";
-
-    }
-
-    const d =
-        new Date(value);
-
-    if(Number.isNaN(d.getTime())){
-        return String(value);
-    }
-
-    return d.toISOString();
-
-}
-
-
-function getOriginalExpiry(row){
-
-    /*
-       Original demo expiry =
-       first_seen + 15 days.
-
-       Current expiry =
-       demo_grant_expires_at.
-
-       अगर server ने पहले से original expiry भेजा है,
-       उसे प्राथमिकता दी जाएगी.
-    */
-
-    if(row.original_expiry){
-        return row.original_expiry;
-    }
-
-    if(row.original_expiry_date){
-        return row.original_expiry_date;
-    }
-
-    if(row.demo_original_expiry){
-        return row.demo_original_expiry;
-    }
-
-    if(row.first_seen){
-
-        return addDaysIso(
-            row.first_seen,
-            Number(row.demo_grant_days || 15)
-        );
-
-    }
-
-    return "";
-
-}
-
-
-function getCurrentExpiry(row){
-
-    return (
-        row.current_expiry ||
-        row.current_expiry_date ||
-        row.demo_grant_expires_at ||
-        row.expiry_date ||
-        ""
-    );
-
-}
-
-
-function getStartDate(row){
-
-    return (
-        row.start_at ||
-        row.started_at ||
-        row.issued_at ||
-        row.first_seen ||
-        ""
-    );
-
-}
-
-
-function statusBadge(status){
-
-    const s =
-        String(status || "")
-        .toUpperCase();
-
-    let cls = "";
-
-    if(s === "ACTIVE" || s === "LICENSED"){
-        cls = "active";
-    }
-
-    if(s === "BLOCKED"){
-        cls = "blocked";
-    }
-
-    if(s === "EXPIRED" || s === "DEMO_EXPIRED"){
-        cls = "expired";
-    }
-
-    return `
-        <span class="badge ${cls}">
-            ${esc(s || "—")}
-        </span>
-    `;
-
-}
-
-
-/* =========================================================
-   CLEAR / RESET FORM
-   ========================================================= */
-
-function clearSelection(){
-
-    selectedMachineId = "";
-
-    setValue("customer_name","");
-    setValue("mobile","");
-    setValue("email","");
-    setValue("firm_name","");
-    setValue("device_fingerprint","");
-    setValue("install_id","");
-
-    document.getElementById("plan").value =
-        "1_YEAR";
-
-    setValue("demo_fp","");
-    setValue("demo_iid","");
-
-    document.getElementById("demo_original_expiry")
-        .textContent = "—";
-
-    document.getElementById("demo_current_expiry")
-        .textContent = "—";
-
-    document.getElementById("demo_start")
-        .textContent = "—";
-
-    document.getElementById("demo_current_status")
-        .textContent = "—";
-
-}
-
-
-/* =========================================================
-   AUTO FILL FROM HISTORY ROW
-   ========================================================= */
-
-function fillFromRow(row){
-
-    selectedMachineId =
-        row.device_fingerprint || "";
-
-    setValue(
-        "customer_name",
-        row.customer_name || ""
-    );
-
-    setValue(
-        "mobile",
-        row.mobile || ""
-    );
-
-    setValue(
-        "email",
-        row.email || ""
-    );
-
-    setValue(
-        "firm_name",
-        row.firm_name || ""
-    );
-
-    setValue(
-        "device_fingerprint",
-        row.device_fingerprint || ""
-    );
-
-    setValue(
-        "install_id",
-        row.install_id || ""
-    );
-
-
-    const p =
-        String(row.plan || "")
-        .toUpperCase();
-
-    if(validPlan(p)){
-
-        document.getElementById("plan").value =
-            p;
-
-    }
-    else{
-
-        document.getElementById("plan").value =
-            "1_YEAR";
-
-    }
-
-
-    setValue(
-        "demo_fp",
-        row.device_fingerprint || ""
-    );
-
-    setValue(
-        "demo_iid",
-        row.install_id || ""
-    );
-
-
-    document.getElementById(
-        "demo_original_expiry"
-    ).textContent =
-        formatExpiry(
-            getOriginalExpiry(row)
-        );
-
-
-    document.getElementById(
-        "demo_current_expiry"
-    ).textContent =
-        formatExpiry(
-            getCurrentExpiry(row)
-        );
-
-
-    document.getElementById(
-        "demo_start"
-    ).textContent =
-        formatExpiry(
-            getStartDate(row)
-        );
-
-
-    document.getElementById(
-        "demo_current_status"
-    ).textContent =
-        row.status || "—";
-
-
-    setMsg(
-        "licenseMsg",
-        "History row selected.\n" +
-        "Customer details, Machine ID और Install ID ऊपर auto-filled हैं.",
-        "success"
-    );
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =========================================================
-   LOGIN
-   ========================================================= */
-
-async function verifyLogin(){
-
-    const token =
-        getValue("token");
-
-    if(!token){
-
-        setMsg(
-            "loginMsg",
-            "Admin token डालें.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    adminToken = token;
-
-
-    try{
-
-        const response =
-            await fetch(
-                API +
-                "/api/admin/history?q=__login_check__",
-                {
-                    headers:
-                        authHeaders()
-                }
-            );
-
-
-        if(response.status === 401){
-
-            throw new Error(
-                "Invalid admin token."
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if(!data.ok){
-
-            throw new Error(
-                data.error ||
-                "Admin verification failed."
-            );
-
-        }
-
-
-        document
-            .getElementById("panel")
-            .classList
-            .remove("hidden");
-
-
-        setMsg(
-            "loginMsg",
-            "Admin verified successfully.",
-            "success"
-        );
-
-
-        await loadHistory();
-
-    }
-    catch(error){
-
-        adminToken = "";
-
-        setMsg(
-            "loginMsg",
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   LOAD HISTORY
-   ========================================================= */
 
 async function loadHistory(){
-
-    if(!adminToken){
-        return;
-    }
-
-
-    try{
-
-        const q =
-            getValue("search");
-
-
-        const url =
-            API +
-            "/api/admin/history" +
-            (
-                q
-                ? "?q=" +
-                  encodeURIComponent(q)
-                : ""
-            );
-
-
-        const response =
-            await fetch(
-                url,
-                {
-                    headers:
-                        authHeaders()
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(!response.ok || !data.ok){
-
-            throw new Error(
-                data.error ||
-                "History load failed."
-            );
-
-        }
-
-
-        const rows =
-            data.rows || [];
-
-
-        const body =
-            document.getElementById(
-                "historyBody"
-            );
-
-
-        body.innerHTML = "";
-
-
-        rows.forEach(function(row){
-
-            const tr =
-                document.createElement("tr");
-
-
-            tr.className =
-                "clickrow";
-
-
-            if(
-                selectedMachineId &&
-                selectedMachineId ===
-                row.device_fingerprint
-            ){
-
-                tr.classList.add(
-                    "selectedrow"
-                );
-
-            }
-
-
-            const type =
-                String(
-                    row.record_type ||
-                    row.type ||
-                    ""
-                ).toUpperCase();
-
-
-            const originalExpiry =
-                getOriginalExpiry(row);
-
-
-            const currentExpiry =
-                getCurrentExpiry(row);
-
-
-            const startDate =
-                getStartDate(row);
-
-
-            const status =
-                String(
-                    row.status || ""
-                ).toUpperCase();
-
-
-            tr.innerHTML = `
-
-                <td>
-                    <span class="badge ${
-                        type === "DEMO"
-                        ? "demo"
-                        : "lic"
-                    }">
-                        ${esc(type || "RECORD")}
-                    </span>
-                </td>
-
-
-                <td>
-                    ${esc(row.customer_name || "—")}
-                </td>
-
-
-                <td>
-                    ${esc(row.mobile || "—")}
-                </td>
-
-
-                <td>
-                    ${esc(row.email || "—")}
-                </td>
-
-
-                <td>
-                    ${esc(row.firm_name || "—")}
-                </td>
-
-
-                <td>
-                    ${esc(row.plan || "—")}
-                </td>
-
-
-                <td>
-                    ${esc(
-                        row.demo_grant_days ||
-                        row.demo_days ||
-                        (type === "DEMO" ? "15" : "—")
-                    )}
-                </td>
-
-
-                <td class="mono">
-                    ${esc(
-                        formatExpiry(startDate)
-                    )}
-                </td>
-
-
-                <td class="mono">
-                    ${esc(
-                        formatExpiry(
-                            originalExpiry
-                        )
-                    )}
-                </td>
-
-
-                <td class="mono">
-                    ${esc(
-                        formatExpiry(
-                            currentExpiry
-                        )
-                    )}
-                </td>
-
-
-                <td>
-                    ${statusBadge(status)}
-                </td>
-
-
-                <td
-                    class="mono"
-                    title="${esc(
-                        row.device_fingerprint || ""
-                    )}"
-                >
-                    ${esc(
-                        row.device_fingerprint || "—"
-                    )}
-                </td>
-
-
-                <td
-                    class="mono"
-                    title="${esc(
-                        row.install_id || ""
-                    )}"
-                >
-                    ${esc(
-                        row.install_id || "—"
-                    )}
-                </td>
-
-
-                <td
-                    class="mono"
-                    title="${esc(
-                        row.download_id || ""
-                    )}"
-                >
-                    ${esc(
-                        row.download_id || "—"
-                    )}
-                </td>
-
-
-                <td>
-                    <button
-                        class="danger smallbtn deleteBtn"
-                    >
-                        Delete
-                    </button>
-                </td>
-
-            `;
-
-
-            /*
-               Row click:
-               Customer + Device + Expiry auto-fill.
-            */
-
-            tr.addEventListener(
-                "click",
-                function(event){
-
-                    if(
-                        event.target.closest(
-                            ".deleteBtn"
-                        )
-                    ){
-
-                        return;
-
-                    }
-
-
-                    document
-                        .querySelectorAll(
-                            "#historyBody tr"
-                        )
-                        .forEach(function(x){
-                            x.classList.remove(
-                                "selectedrow"
-                            );
-                        });
-
-
-                    tr.classList.add(
-                        "selectedrow"
-                    );
-
-
-                    fillFromRow(row);
-
-                }
-            );
-
-
-            /*
-               Delete button
-            */
-
-            tr.querySelector(
-                ".deleteBtn"
-            ).addEventListener(
-                "click",
-                async function(event){
-
-                    event.stopPropagation();
-
-
-                    const machine =
-                        row.device_fingerprint;
-
-
-                    if(!machine){
-
-                        setMsg(
-                            "historyMsg",
-                            "Machine ID missing.",
-                            "error"
-                        );
-
-                        return;
-                    }
-
-
-                    const yes =
-                        confirm(
-                            "इस Machine ID की पूरी history delete करनी है?\n\n" +
-                            "Machine ID:\n" +
-                            machine +
-                            "\n\n" +
-                            "License, Device और Event history हटेगी."
-                        );
-
-
-                    if(!yes){
-                        return;
-                    }
-
-
-                    await deleteHistory(
-                        machine
-                    );
-
-                }
-            );
-
-
-            body.appendChild(tr);
-
-        });
-
-
-        setMsg(
-            "historyMsg",
-            rows.length +
-            " record(s) found.",
-            "success"
-        );
-
-    }
-    catch(error){
-
-        setMsg(
-            "historyMsg",
-            error.message,
-            "error"
-        );
-
-    }
-
+ try{
+  const q=val("search");
+  const url=API+"/api/admin/history"+(q?"?q="+encodeURIComponent(q):"");
+  const r=await fetch(url,{headers:headers()});
+  const d=await r.json();
+  if(!r.ok||!d.ok)throw new Error(d.error||"History load failed.");
+  const rows=d.rows||[];
+  const body=document.getElementById("historyBody");
+  body.innerHTML="";
+  rows.forEach(row=>{
+   const tr=document.createElement("tr");
+   tr.className="data-row"+(selectedMachineId&&selectedMachineId===row.device_fingerprint?" selected":"");
+   const type=String(row.record_type||row.type||"").toUpperCase();
+   tr.innerHTML=`
+    <td><span class="badge ${type==="DEMO"?"demo":"license"}">${esc(type||"RECORD")}</span></td>
+    <td>${esc(row.customer_name||"—")}</td>
+    <td>${esc(row.mobile||"—")}</td>
+    <td>${esc(row.email||"—")}</td>
+    <td>${esc(row.firm_name||"—")}</td>
+    <td>${esc(row.plan||"—")}</td>
+    <td>${esc(row.demo_grant_days||row.demo_days||(type==="DEMO"?"15":"—"))}</td>
+    <td class="mono">${esc(iso(startDate(row)))}</td>
+    <td class="mono">${esc(iso(originalExpiry(row)))}</td>
+    <td class="mono">${esc(iso(currentExpiry(row)))}</td>
+    <td>${statusBadge(row.status)}</td>
+    <td class="mono" title="${esc(row.device_fingerprint||"")}">${esc(row.device_fingerprint||"—")}</td>
+    <td class="mono" title="${esc(row.install_id||"")}">${esc(row.install_id||"—")}</td>
+    <td class="mono">${esc(row.download_id||"—")}</td>
+    <td class="action-col"><button class="danger small deleteBtn">Delete</button></td>`;
+   tr.addEventListener("click",e=>{
+    if(e.target.closest(".deleteBtn"))return;
+    document.querySelectorAll("#historyBody tr").forEach(x=>x.classList.remove("selected"));
+    tr.classList.add("selected");
+    fillRow(row);
+   });
+   tr.querySelector(".deleteBtn").addEventListener("click",async e=>{
+    e.stopPropagation();
+    if(!row.device_fingerprint){msg("historyMsg","Machine ID missing.","error");return}
+    if(!confirm("इस Machine ID की License + Device + Event history delete करनी है?\n\n"+row.device_fingerprint))return;
+    await deleteHistory(row.device_fingerprint);
+   });
+   body.appendChild(tr);
+  });
+  msg("historyMsg",rows.length+" record(s) found.","success");
+ }catch(e){msg("historyMsg",e.message,"error")}
 }
 
-
-/* =========================================================
-   DELETE HISTORY
-   ========================================================= */
-
-async function deleteHistory(machineId){
-
-    try{
-
-        const response =
-            await fetch(
-                API +
-                "/api/admin/history/delete",
-                {
-                    method:"POST",
-
-                    headers:
-                        authHeaders({
-                            "Content-Type":
-                                "application/json"
-                        }),
-
-                    body:
-                        JSON.stringify({
-                            device_fingerprint:
-                                machineId
-                        })
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            !response.ok ||
-            !data.ok
-        ){
-
-            throw new Error(
-                data.error ||
-                "Delete failed."
-            );
-
-        }
-
-
-        if(
-            selectedMachineId ===
-            machineId
-        ){
-
-            clearSelection();
-
-        }
-
-
-        setMsg(
-            "historyMsg",
-            "Machine history deleted successfully.",
-            "success"
-        );
-
-
-        await loadHistory();
-
-    }
-    catch(error){
-
-        setMsg(
-            "historyMsg",
-            error.message,
-            "error"
-        );
-
-    }
-
+async function deleteHistory(fp){
+ try{
+  const r=await fetch(API+"/api/admin/history/delete",{method:"POST",headers:headers({"Content-Type":"application/json"}),body:JSON.stringify({device_fingerprint:fp})});
+  const d=await r.json();
+  if(!r.ok||!d.ok)throw new Error(d.error||"Delete failed.");
+  if(selectedMachineId===fp){selectedMachineId="";setv("device_fingerprint","");setv("install_id","");setv("demo_fp","");setv("demo_iid","")}
+  msg("historyMsg","Machine history deleted successfully.","success");
+  await loadHistory();
+ }catch(e){msg("historyMsg",e.message,"error")}
 }
-
-
-/* =========================================================
-   GENERATE LICENSE
-   ========================================================= */
 
 async function generateLicense(){
-
-    const payload = {
-
-        customer_name:
-            getValue("customer_name"),
-
-        mobile:
-            getValue("mobile"),
-
-        email:
-            getValue("email"),
-
-        firm_name:
-            getValue("firm_name"),
-
-        device_fingerprint:
-            getValue("device_fingerprint"),
-
-        install_id:
-            getValue("install_id"),
-
-        plan:
-            document.getElementById(
-                "plan"
-            ).value
-
-    };
-
-
-    if(
-        !payload.device_fingerprint ||
-        !payload.install_id
-    ){
-
-        setMsg(
-            "licenseMsg",
-            "पहले History में उस customer/device की row पर click करें ताकि Machine ID और Install ID auto-fill हो जाएँ.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if(!validPlan(payload.plan)){
-
-        setMsg(
-            "licenseMsg",
-            "Invalid license plan.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    try{
-
-        const response =
-            await fetch(
-                API +
-                "/api/admin/license",
-                {
-                    method:"POST",
-
-                    headers:
-                        authHeaders({
-                            "Content-Type":
-                                "application/json"
-                        }),
-
-                    body:
-                        JSON.stringify(payload)
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            !response.ok ||
-            !data.ok
-        ){
-
-            throw new Error(
-                data.error ||
-                "License generation failed."
-            );
-
-        }
-
-
-        /*
-           Worker से जो signed license text
-           field मिले उसे प्राथमिकता।
-        */
-
-        const signedText =
-            data.license_file ||
-            data.license_text ||
-            data.signed_license ||
-            data.activation_token ||
-            data.license ||
-            "";
-
-
-        document.getElementById(
-            "licenseResult"
-        ).classList.remove(
-            "hidden"
-        );
-
-
-        document.getElementById(
-            "licenseText"
-        ).value =
-            typeof signedText === "string"
-            ? signedText
-            : JSON.stringify(
-                signedText,
-                null,
-                2
-            );
-
-
-        setMsg(
-            "licenseMsg",
-            "License generated successfully.\n\n" +
-            "License ID: " +
-            (data.license_id || "—") +
-            "\n" +
-            "Plan: " +
-            (data.plan || payload.plan) +
-            "\n" +
-            "Expiry: " +
-            (
-                data.expiry_date ||
-                "LIFETIME"
-            ),
-            "success"
-        );
-
-
-        await loadHistory();
-
-    }
-    catch(error){
-
-        setMsg(
-            "licenseMsg",
-            error.message,
-            "error"
-        );
-
-    }
-
+ const p={
+  customer_name:val("customer_name"),mobile:val("mobile"),email:val("email"),firm_name:val("firm_name"),
+  device_fingerprint:val("device_fingerprint"),install_id:val("install_id"),plan:document.getElementById("plan").value
+ };
+ if(!p.device_fingerprint||!p.install_id){msg("licenseMsg","पहले History में customer/device row पर click करें.","error");return}
+ try{
+  const r=await fetch(API+"/api/admin/license",{method:"POST",headers:headers({"Content-Type":"application/json"}),body:JSON.stringify(p)});
+  const d=await r.json();
+  if(!r.ok||!d.ok)throw new Error(d.error||"License generation failed.");
+  currentLicenseToken=String(d.license_file||d.license_text||d.signed_license||d.license_token||"");
+  if(!currentLicenseToken)throw new Error("Worker ने signed license_file नहीं लौटाया। कोई fake license file नहीं बनाई जाएगी.");
+  document.getElementById("licenseResult").classList.remove("hidden");
+  document.getElementById("licenseText").value=currentLicenseToken;
+  msg("licenseMsg","License generated successfully.\n\nLicense ID: "+(d.license_id||"—")+"\nPlan: "+(d.plan||p.plan)+"\nExpiry: "+(d.expiry_date||"LIFETIME"),"success");
+  await loadHistory();
+ }catch(e){msg("licenseMsg",e.message,"error")}
 }
 
-
-/* =========================================================
-   COPY SIGNED LICENSE
-   ========================================================= */
-
-async function copyLicenseText(){
-
-    const text =
-        document.getElementById(
-            "licenseText"
-        ).value;
-
-
-    if(!text){
-        return;
-    }
-
-
-    try{
-
-        await navigator.clipboard.writeText(
-            text
-        );
-
-
-        setMsg(
-            "licenseMsg",
-            "Signed license text copied.",
-            "success"
-        );
-
-    }
-    catch(error){
-
-        setMsg(
-            "licenseMsg",
-            "Copy नहीं हुआ। License text नीचे से manually copy करें.",
-            "error"
-        );
-
-    }
-
+function downloadLicense(){
+ if(!currentLicenseToken)return;
+ /* license_client.py accepts a JSON string containing the signed base64url token. */
+ const content=JSON.stringify(currentLicenseToken);
+ const blob=new Blob([content],{type:"application/json;charset=utf-8"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;
+ a.download="SRL_Khata_License.json";
+ document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+ msg("licenseMsg","SRL_Khata_License.json तैयार है। यही file customer को देनी है.","success");
 }
 
+async function copyLicense(){
+ if(!currentLicenseToken)return;
+ try{
+  await navigator.clipboard.writeText(currentLicenseToken);
+  msg("licenseMsg","Signed license token copied.","success");
+ }catch(e){msg("licenseMsg","Copy नहीं हुआ.","error")}
+}
 
-/* =========================================================
-   DEMO ACTION
-   ========================================================= */
+function updateDemoUI(){
+ const a=document.getElementById("demo_action").value;
+ const d=document.getElementById("demo_days");
+ if(a==="RESET"){d.value="15";d.readOnly=true}
+ else if(a==="REVOKE"){d.value="0";d.readOnly=true}
+ else{d.readOnly=false;if(Number(d.value)<1)d.value="1"}
+}
 
 async function demoAction(){
-
-    const action =
-        document.getElementById(
-            "demo_action"
-        ).value;
-
-
-    let days =
-        Number(
-            document.getElementById(
-                "demo_days"
-            ).value || 15
-        );
-
-
-    const machineId =
-        getValue("demo_fp");
-
-
-    const installId =
-        getValue("demo_iid");
-
-
-    if(
-        !machineId ||
-        !installId
-    ){
-
-        setMsg(
-            "demoMsg",
-            "पहले History में उस PC की row select करें.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    /*
-       RESET हमेशा 15 days.
-       User अगर 100 लिखे तब भी RESET 15 ही जाएगा.
-    */
-
-    if(action === "RESET"){
-
-        days = 15;
-
-        document.getElementById(
-            "demo_days"
-        ).value = "15";
-
-    }
-
-
-    if(action === "REVOKE"){
-
-        days = 0;
-
-    }
-
-
-    if(
-        action === "EXTEND" &&
-        (!Number.isFinite(days) || days < 1)
-    ){
-
-        setMsg(
-            "demoMsg",
-            "EXTEND के लिए valid days डालें.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const payload = {
-
-        device_fingerprint:
-            machineId,
-
-        install_id:
-            installId,
-
-        action:
-            action,
-
-        days:
-            days
-
-    };
-
-
-    try{
-
-        const response =
-            await fetch(
-                API +
-                "/api/admin/demo/grant",
-                {
-                    method:"POST",
-
-                    headers:
-                        authHeaders({
-                            "Content-Type":
-                                "application/json"
-                        }),
-
-                    body:
-                        JSON.stringify(payload)
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            !response.ok ||
-            !data.ok
-        ){
-
-            throw new Error(
-                data.error ||
-                "Demo action failed."
-            );
-
-        }
-
-
-        const newExpiry =
-            data.demo_grant_expires_at ||
-            data.expires_at ||
-            data.expiry_date ||
-            "";
-
-
-        document.getElementById(
-            "demo_current_expiry"
-        ).textContent =
-            formatExpiry(
-                newExpiry
-            );
-
-
-        document.getElementById(
-            "demo_current_status"
-        ).textContent =
-            data.status ||
-            (
-                action === "REVOKE"
-                ? "BLOCKED"
-                : "ACTIVE"
-            );
-
-
-        setMsg(
-            "demoMsg",
-            JSON.stringify(
-                data,
-                null,
-                2
-            ),
-            "success"
-        );
-
-
-        await loadHistory();
-
-    }
-    catch(error){
-
-        setMsg(
-            "demoMsg",
-            error.message,
-            "error"
-        );
-
-    }
-
+ const action=document.getElementById("demo_action").value;
+ const fp=val("demo_fp"),iid=val("demo_iid");
+ if(!fp||!iid){msg("demoMsg","पहले History में उस PC की row पर click करें.","error");return}
+ let days=Number(document.getElementById("demo_days").value||15);
+ if(action==="RESET")days=15;
+ if(action==="REVOKE")days=0;
+ if(action==="EXTEND"&&(!Number.isFinite(days)||days<1)){msg("demoMsg","EXTEND के लिए valid days डालें.","error");return}
+ try{
+  const r=await fetch(API+"/api/admin/demo/grant",{method:"POST",headers:headers({"Content-Type":"application/json"}),body:JSON.stringify({device_fingerprint:fp,install_id:iid,action,days})});
+  const d=await r.json();
+  if(!r.ok||!d.ok)throw new Error(d.error||"Demo action failed.");
+  const exp=d.demo_grant_expires_at||d.expires_at||d.expiry_date||"";
+  document.getElementById("demo_current").textContent=iso(exp);
+  document.getElementById("demo_status").textContent=d.status||(action==="REVOKE"?"BLOCKED":"ACTIVE");
+  msg("demoMsg",JSON.stringify(d,null,2),"success");
+  await loadHistory();
+ }catch(e){msg("demoMsg",e.message,"error")}
 }
 
-
-/* =========================================================
-   ACTION CHANGE
-   ========================================================= */
-
-function updateDemoActionUI(){
-
-    const action =
-        document.getElementById(
-            "demo_action"
-        ).value;
-
-
-    const daysInput =
-        document.getElementById(
-            "demo_days"
-        );
-
-
-    if(action === "RESET"){
-
-        daysInput.value = "15";
-
-        daysInput.readOnly = true;
-
-    }
-    else if(action === "REVOKE"){
-
-        daysInput.value = "0";
-
-        daysInput.readOnly = true;
-
-    }
-    else{
-
-        daysInput.readOnly = false;
-
-        if(
-            Number(daysInput.value) < 1
-        ){
-
-            daysInput.value = "1";
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
-document
-    .getElementById("loginBtn")
-    .addEventListener(
-        "click",
-        verifyLogin
-    );
-
-
-document
-    .getElementById("refreshBtn")
-    .addEventListener(
-        "click",
-        loadHistory
-    );
-
-
-document
-    .getElementById("generateBtn")
-    .addEventListener(
-        "click",
-        generateLicense
-    );
-
-
-document
-    .getElementById("demoBtn")
-    .addEventListener(
-        "click",
-        demoAction
-    );
-
-
-document
-    .getElementById("demo_action")
-    .addEventListener(
-        "change",
-        updateDemoActionUI
-    );
-
-
-document
-    .getElementById("search")
-    .addEventListener(
-        "keydown",
-        function(event){
-
-            if(event.key === "Enter"){
-
-                loadHistory();
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-   LICENSE TEXT COPY BUTTON
-   ========================================================= */
-
-const licenseResult =
-    document.getElementById(
-        "licenseResult"
-    );
-
-
-const copyButton =
-    document.createElement("button");
-
-
-copyButton.type = "button";
-
-copyButton.className =
-    "secondary";
-
-copyButton.style.marginTop =
-    "8px";
-
-copyButton.textContent =
-    "Copy Signed License Text";
-
-copyButton.addEventListener(
-    "click",
-    copyLicenseText
-);
-
-
-licenseResult.appendChild(
-    copyButton
-);
-
-
-/* =========================================================
-   INITIAL DEMO CONTROL STATE
-   ========================================================= */
-
-updateDemoActionUI();
-
+document.getElementById("loginBtn").onclick=login;
+document.getElementById("refreshBtn").onclick=loadHistory;
+document.getElementById("generateBtn").onclick=generateLicense;
+document.getElementById("downloadLicenseBtn").onclick=downloadLicense;
+document.getElementById("copyLicenseBtn").onclick=copyLicense;
+document.getElementById("demoBtn").onclick=demoAction;
+document.getElementById("demo_action").onchange=updateDemoUI;
+document.getElementById("search").onkeydown=e=>{if(e.key==="Enter")loadHistory()};
+updateDemoUI();
 </script>
-
 </body>
 </html>
