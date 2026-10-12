@@ -212,6 +212,7 @@
     <nav>
         <a href="#features">Features</a>
         <a href="#demo">Demo</a>
+        <a href="#update">Update</a>
         <a href="#plans">Plans</a>
         <a href="#contact">Contact</a>
     </nav>
@@ -235,6 +236,11 @@
             class="btn btn-demo"
         >
             Download Free Demo
+        </a>
+
+        <a href="https://github.com/spShishpal-max/SRL-Khata-Releases/releases/latest/download/SRL_Khata_Update_Setup.exe"
+           class="btn btn-info">
+            Download Update
         </a>
 
         <a href="#features" class="btn btn-info">
@@ -410,6 +416,29 @@
 </section>
 
 
+<section class="section" id="update">
+    <h2>Software Update</h2>
+    <p class="section-intro">
+        Existing SRL Khata users can get the latest update package here.
+        The update package is separate from the Demo installer.
+    </p>
+    <div class="demo-box">
+        <p><strong>For existing users:</strong> Check the release version below, then download the update installer.</p>
+        <p id="release-status" role="status" aria-live="polite">Checking the latest release…</p>
+        <div class="buttons" style="text-align:center;">
+            <a id="update-download"
+               href="https://github.com/spShishpal-max/SRL-Khata-Releases/releases/latest/download/SRL_Khata_Update_Setup.exe"
+               class="btn btn-demo">
+                Download Software Update
+            </a>
+        </div>
+        <p style="font-size:13px; margin-top:12px;">
+            Back up company data before installing. The update installer should update the existing installation without deleting company data or license files.
+        </p>
+    </div>
+</section>
+
+
 <section class="section" id="plans">
 
     <h2>License Plans</h2>
@@ -480,6 +509,35 @@
 
 
 <script>
+(async function loadSrlKhataRelease() {
+    const status = document.getElementById("release-status");
+    const download = document.getElementById("update-download");
+    const releaseApi = "https://srl-khata-license.sp-shishpal.workers.dev/api/release";
+    const fallbackUrl = "https://github.com/spShishpal-max/SRL-Khata-Releases/releases/latest/download/SRL_Khata_Update_Setup.exe";
+
+    try {
+        const response = await fetch(releaseApi, { cache: "no-store" });
+        if (!response.ok) throw new Error("Release API returned HTTP " + response.status);
+        const data = await response.json();
+
+        const version = data.version || data.latest_version || data.release_version || data.tag_name;
+        const releaseUrl = data.download_url || data.url || data.asset_url || data.downloadUrl;
+
+        if (releaseUrl && /^https:\/\//i.test(releaseUrl)) {
+            download.href = releaseUrl;
+        } else {
+            download.href = fallbackUrl;
+        }
+
+        status.textContent = version
+            ? "Latest release reported by SRL Khata: version " + version + "."
+            : "Latest release information was reached. Use the update installer link below.";
+    } catch (error) {
+        // Keep the direct GitHub Release asset link available if the API is temporarily unavailable.
+        download.href = fallbackUrl;
+        status.textContent = "Could not read release details right now. The direct update download link is still available below.";
+    }
+})();
 </script>
 
 </body>
